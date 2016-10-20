@@ -37,7 +37,7 @@ module ActiveModel
   #       end
   #     end
   #
-  class Serializer
+  class OldSerializer
     extend ActiveSupport::DescendantsTracker
 
     INCLUDE_METHODS = {}
@@ -262,19 +262,19 @@ module ActiveModel
         options = default_options.merge(options || {})
 
         serializer = options.delete(:serializer) ||
-          (resource.respond_to?(:active_model_serializer) &&
-           resource.active_model_serializer)
+          (resource.respond_to?(:old_active_model_serializer) &&
+           resource.old_active_model_serializer)
 
         return serializer unless serializer
 
         if resource.respond_to?(:to_ary)
-          unless serializer <= ActiveModel::ArraySerializer
+          unless serializer <= ActiveModel::OldArraySerializer
             raise ArgumentError.new("#{serializer.name} is not an ArraySerializer. " +
                                     "You may want to use the :each_serializer option instead.")
           end
 
           if options[:root] != false && serializer.root != false
-            # the serializer for an Array is ActiveModel::ArraySerializer
+            # the serializer for an Array is ActiveModel::OldArraySerializer
             options[:root] ||= serializer.root || controller.controller_name
           end
         end

@@ -34,7 +34,7 @@ module Rails
         elsif defined?(::ApplicationSerializer)
           "ApplicationSerializer"
         else
-          "ActiveModel::Serializer"
+          "ActiveModel::OldSerializer"
         end
       end
     end

@@ -4,11 +4,11 @@
 module ActiveRecord
   module SerializerOverride
     def to_json options = {}
-      active_model_serializer.new(self).to_json options
+      old_active_model_serializer.new(self).to_json options
     end
 
     def as_json options={}
-      active_model_serializer.new(self).as_json options
+      old_active_model_serializer.new(self).as_json options
     end
   end
 

@@ -6,13 +6,13 @@ module ActiveModel
   # Active Model Array Serializer
   #
   # Serializes an Array, checking if each element implements
-  # the +active_model_serializer+ method.
+  # the +old_active_model_serializer+ method.
   #
   # To disable serialization of root elements:
   #
   #     ActiveModel::ArraySerializer.root = false
   #
-  class ArraySerializer
+  class OldArraySerializer
     extend ActiveSupport::DescendantsTracker
 
     attr_reader :object, :options
@@ -79,8 +79,8 @@ module ActiveModel
       @object.map do |item|
         if @options.has_key? :each_serializer
           serializer = @options[:each_serializer]
-        elsif item.respond_to?(:active_model_serializer)
-          serializer = item.active_model_serializer
+        elsif item.respond_to?(:old_active_model_serializer)
+          serializer = item.old_active_model_serializer
         end
 
         serializable = serializer ? serializer.new(item, @options) : DefaultSerializer.new(item, @options.merge(:root => false))

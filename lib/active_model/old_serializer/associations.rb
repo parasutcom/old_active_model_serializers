@@ -1,5 +1,5 @@
 module ActiveModel
-  class Serializer
+  class OldSerializer
     module Associations #:nodoc:
       class Config #:nodoc:
         class_attribute :options
@@ -92,7 +92,7 @@ module ActiveModel
         def find_serializable(object)
           if target_serializer
             target_serializer.new(object, source_serializer.options)
-          elsif object.respond_to?(:active_model_serializer) && (ams = object.active_model_serializer)
+          elsif object.respond_to?(:old_active_model_serializer) && (ams = object.old_active_model_serializer)
             ams.new(object, source_serializer.options)
           else
             object

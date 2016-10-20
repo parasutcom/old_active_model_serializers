@@ -22,7 +22,7 @@ module ActionController
   #      end
   #    end
   #
-  module Serialization
+  module OldSerialization
     extend ActiveSupport::Concern
 
     include ActionController::Renderers
@@ -42,7 +42,7 @@ module ActionController
 
     [:_render_option_json, :_render_with_renderer_json].each do |renderer_method|
       define_method renderer_method do |resource, options|
-        json = ActiveModel::Serializer.build_json(self, resource, options)
+        json = ActiveModel::OldSerializer.build_json(self, resource, options)
 
         if json
           super(json, options)
